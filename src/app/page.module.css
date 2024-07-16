@@ -13,6 +13,7 @@
   background-color: black;
   height: 1px;
   width: 100%;
+  grid-area: line;
 }
 
 .barText {
@@ -89,17 +90,73 @@
   margin-left: 150px;
 }
 
+.about {
+  display: grid;
+  grid-template-columns: 320px 220px 1fr;
+  grid-template-rows: 60px 1fr;
+  gap: 0;
+  grid-template-areas: 
+  "line line line"
+  "sectionOne sectionTwo sectionThree";
+}
+
+.about .bar {
+  margin: 30px 0;
+}
+
 .AboutImg {
-  width: 300px;
+  width: 310px;
   height: auto;
 }
 
 .tags {
   display: flex;
-  align-content: space-between;
+  justify-content: space-between;
+  text-wrap: nowrap;
 }
 
 .tags p {
   border: 1px solid var(--black);
   padding: 5px 25px;
+}
+
+.sectionOne {
+  grid-area: sectionOne;
+  width: fit-content;
+}
+
+.sectionTwo {
+  grid-area: sectionTwo;
+  justify-self: start;
+  
+}
+
+.sectionThree {
+  grid-area: sectionThree;
+  justify-self: end;
+  min-width: 400px;
+}
+
+.sectionThree p:first-of-type {
+  text-align: right;
+}
+
+.greyBars {
+  position: relative;
+  display: flex;
+  font-size: 100px;
+  padding: 0;
+  margin: 0;
+  color: var(--black);
+}
+
+.greyBars:before {
+  content: " ";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 65%;
+  background-color: #E0E0E0;
 }
