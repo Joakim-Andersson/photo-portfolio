@@ -21,11 +21,6 @@ export default function Hero() {
     const ctaEl = document.querySelector(`.${styles.cta}`);
     const photos = document.querySelectorAll(`.${styles.photo}`);
 
-    // Debugging: Log the elements to ensure they are selected correctly
-    console.log('firstNameEl:', firstNameEl);
-    console.log('lastNameEl:', lastNameEl);
-    console.log('ctaEl:', ctaEl);
-
     // Apply basic animation to verify elements are being animated
     gsap.fromTo(
       firstNameEl,

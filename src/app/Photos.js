@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -9,6 +9,8 @@ export default function Photos() {
     const [photos, setPhotos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedTag, setSelectedTag] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const photosPerPage = 12;
 
     useEffect(() => {
         const getPhotos = async () => {
@@ -29,11 +31,23 @@ export default function Photos() {
         ? photos.filter(photo => photo.tags.includes(selectedTag))
         : photos;
 
+    const indexOfLastPhoto = currentPage * photosPerPage;
+    const currentPhotos = filteredPhotos.slice(0, indexOfLastPhoto);
+
+    const loadMorePhotos = () => {
+        if (indexOfLastPhoto < filteredPhotos.length) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
     return (
         <section className={styles.photosSection}>
             <div className={styles.filterSection}>
                 <button 
-                    onClick={() => setSelectedTag('')} 
+                    onClick={() => {
+                        setSelectedTag('');
+                        setCurrentPage(1);
+                    }} 
                     className={selectedTag === '' ? styles.activeFilter : ''}
                 >
                     all
@@ -41,7 +55,10 @@ export default function Photos() {
                 {uniqueTags.map(tag => (
                     <button 
                         key={tag} 
-                        onClick={() => setSelectedTag(tag)}
+                        onClick={() => {
+                            setSelectedTag(tag);
+                            setCurrentPage(1);
+                        }}
                         className={selectedTag === tag ? styles.activeFilter : ''}
                     >
                         {tag}
@@ -52,7 +69,7 @@ export default function Photos() {
                 {loading ? (
                     <p>Loading...</p>
                 ) : (
-                    filteredPhotos.map(photo => (
+                    currentPhotos.map(photo => (
                         <div key={photo.id} className={styles.photoItem}>
                             <Image 
                                 src={`https:${photo.image}`} 
@@ -65,6 +82,11 @@ export default function Photos() {
                     ))
                 )}
             </div>
+            {indexOfLastPhoto < filteredPhotos.length && (
+                <div className={styles.seeMore}>
+                    <button onClick={loadMorePhotos}>see more</button>
+                </div>
+            )}
         </section>
     );
 }
