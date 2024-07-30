@@ -151,6 +151,7 @@
 
 .photosSection {
   margin-top: 60px;
+  min-height: 720px;
 }
 
 .filterSection {
@@ -193,6 +194,9 @@
   .photoSection {
     grid-template-columns: repeat(2, 1fr);
     padding: 20px 0px;
+  }
+  .photosSection {
+    min-height: 1400px;
   }
 }
 
