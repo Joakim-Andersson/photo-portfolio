@@ -300,11 +300,14 @@
   background-color: #E0E0E0;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1020px) {
   .about {
     display: flex;
    flex-direction: column;
   }
+}
+
+@media (max-width: 900px) {
 
   .sectionThree {
     min-width: 0px;
