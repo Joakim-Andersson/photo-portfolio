@@ -60,6 +60,28 @@
   filter: drop-shadow(darkgray 2px 2px 0.7rem) saturate(75%);
 }
 
+@media (max-width: 1400px) {
+
+  .emoji {
+    display: none;
+  }
+ 
+ .photos {
+  grid-template-areas: 
+    "img1 . cta"
+    "img3 img4 cta";
+    grid-template-columns: minmax(150px, 1fr) minmax(150px, 1fr) 2fr;
+    grid-template-rows: repeat(2, 150px); 
+    padding: 0px;
+ }
+
+ .photo:nth-of-type(6) {
+  margin-left: 0px !important;
+  justify-self: end;
+}
+
+}
+
 @media (max-width: 900px) {
   .barText p {
     font-size: 12px;
@@ -282,5 +304,9 @@
   .about {
     display: flex;
    flex-direction: column;
+  }
+
+  .sectionThree {
+    min-width: 0px;
   }
 }
