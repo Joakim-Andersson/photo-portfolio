@@ -1,12 +1,75 @@
 "use client";
 
+import { useLayoutEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import styles from './page.module.css';
 import joki from '/public/images/joki.png';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function About() {
+  const sectionRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // Animate Section One from the left
+      gsap.fromTo(
+        `.${styles.sectionOne}`,
+        { xPercent: -100 },
+        {
+          xPercent: 0,
+          scrollTrigger: {
+            trigger: `.${styles.sectionOne}`,
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: true,
+          },
+        }
+      );
+
+      // Animate Section Two from the bottom
+      gsap.fromTo(
+        `.${styles.sectionTwo}`,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          scrollTrigger: {
+            trigger: `.${styles.sectionTwo}`,
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: true,
+          },
+        }
+      );
+
+      // Animate Section Three from the right
+      gsap.fromTo(
+        `.${styles.sectionThree}`,
+        { xPercent: 100 },
+        {
+          xPercent: 0,
+          scrollTrigger: {
+            trigger: `.${styles.sectionThree}`,
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: true,
+          },
+        }
+      );
+    }, sectionRef);
+
+    // Use setTimeout to delay the ScrollTrigger.refresh() call
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100); // Adjust the delay as needed
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className={styles.about}>
+    <section ref={sectionRef} className={styles.about}>
       <div className={styles.bar}></div>
       <div className={`${styles.section} ${styles.sectionOne}`}>
         <p>me</p>

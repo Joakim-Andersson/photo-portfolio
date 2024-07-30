@@ -207,7 +207,7 @@
 /* About Section */
 
 .about {
-  overflow-x: hidden;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 320px 220px 1fr;
   grid-template-rows: 60px 1fr;
