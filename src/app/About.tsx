@@ -1,57 +1,10 @@
 "use client";
 
-import { useLayoutEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import styles from './page.module.css';
 import joki from '/public/images/joki.png';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function About() {
-  useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      const animations = [
-        {
-          element: `.${styles.sectionOne}`,
-          animation: { x: -100, opacity: 0 },
-          finalState: { x: 0, opacity: 1 },
-        },
-        {
-          element: `.${styles.sectionTwo}`,
-          animation: { y: 100, opacity: 0 },
-          finalState: { y: 0, opacity: 1 },
-        },
-        {
-          element: `.${styles.sectionThree}`,
-          animation: { x: 100, opacity: 0 },
-          finalState: { x: 0, opacity: 1 },
-        },
-      ];
-
-      animations.forEach(({ element, animation, finalState }) => {
-        gsap.fromTo(
-          element,
-          animation,
-          {
-            ...finalState,
-            duration: 1,
-            scrollTrigger: {
-              trigger: element,
-              start: "top 30%", 
-              end: "bottom 1%", 
-              scrub: true,
-              //markers: true, // Enable markers for debugging
-            },
-          }
-        );
-      });
-    });
-
-    return () => ctx.revert(); // Cleanup the animations when the component unmounts
-  }, []);
-
   return (
     <section className={styles.about}>
       <div className={styles.bar}></div>
