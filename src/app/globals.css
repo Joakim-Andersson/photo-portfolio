@@ -35,8 +35,7 @@ p {
   letter-spacing: -0.02em; 
 }
 
-
-@media (max-width: 900px) {
+@media (max-width: 1099px) {
   html {
     padding: 1rem;
   }
