@@ -16,7 +16,11 @@ const krona_one = Krona_One({
   weight: ['400']
 });
 
+// Replace with your actual production base URL
+const baseURL = "https://main--joakimandersson.netlify.app/";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(baseURL),
   title: "Joakim Andersson Photography",
   description: "Scandic photography and street art",
   icons: {
@@ -28,17 +32,17 @@ export const metadata: Metadata = {
     description: "Scandic photography and street art",
     images: [
       {
-        url: '/images/og-image.png',
+        url: `${baseURL}/images/og-image.png`,
       },
     ],
-    },
+  },
   twitter: {
     card: "summary_large_image",
     title: "Joakim Andersson Photography",
     description: "Scandic photography and street art",
     images: [
       {
-        url: '/images/twitter-image.jpg',
+        url: `${baseURL}/images/twitter-image.jpg`,
       },
     ],
   },

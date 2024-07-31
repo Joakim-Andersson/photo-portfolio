@@ -76,6 +76,7 @@ export default function Hero() {
       <div className={styles.photos}>
         <div className={styles.photo}>
           <Image
+            priority
             src={img2}
             alt="Description 1"
             layout="fill"
@@ -84,6 +85,7 @@ export default function Hero() {
         </div>
         <div className={styles.photo}>
           <Image
+            priority
             src={img1}
             alt="Description 2"
             layout="fill"
@@ -92,6 +94,7 @@ export default function Hero() {
         </div>
         <div className={styles.photo}>
           <Image
+            priority
             src={img3}
             alt="Description 3"
             layout="fill"
@@ -100,6 +103,7 @@ export default function Hero() {
         </div>
         <div className={styles.photo}>
           <Image
+            priority
             src={img4}
             alt="Description 4"
             layout="fill"
@@ -108,6 +112,7 @@ export default function Hero() {
         </div>
         <div className={styles.photo}>
           <Image
+            priority
             src={img5}
             alt="Description 5"
             layout="fill"
@@ -116,6 +121,7 @@ export default function Hero() {
         </div>
         <div className={`${styles.photo} ${styles.cta}`}>
           <Image
+            priority
             src={cta}
             alt="Description 6"
           />
