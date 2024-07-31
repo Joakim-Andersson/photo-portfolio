@@ -9,12 +9,9 @@ export async function fetchPhotos() {
     try {
         const assets = await client.getAssets();
 
-        console.log('Assets fetched from Contentful:', assets); // Debugging log
-
         const photos = assets.items.map(asset => {
             const { title, file } = asset.fields;
             const tags = asset.metadata.tags.map(tag => tag.sys.id);
-            console.log('Asset fields:', asset.fields); // Debugging log
 
             return {
                 id: asset.sys.id,
@@ -24,7 +21,6 @@ export async function fetchPhotos() {
             };
         });
 
-        console.log('Processed photos:', photos); // Debugging log
         return photos;
     } catch (error) {
         console.error('Error fetching photos:', error);
