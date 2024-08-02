@@ -86,10 +86,10 @@ export default function About() {
       </div>
       <div className={`${styles.section} ${styles.sectionTwo}`}>
         <p>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Joakim is sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Passionate about Scandic beauty and Greek vacations. I specialize in artistic and scenic photography, with a focus on architecture, vintage cars, and portraits.
           <br></br>
           <br></br>
-          Voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+          With my Fujifilm camera and Italian Greyhound in hand, I enjoy capturing visual stories of our seemingly-mundane surroundings. Always open to collab on creative projects.
         </p>
       </div>
       <div className={`${styles.section} ${styles.sectionThree}`}>
