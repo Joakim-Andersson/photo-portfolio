@@ -19,9 +19,8 @@ export default function Hero() {
     const firstNameEl = document.querySelector(`.${styles.firstName}`);
     const lastNameEl = document.querySelector(`.${styles.lastName}`);
     const ctaEl = document.querySelector(`.${styles.cta}`);
-    const photos = document.querySelectorAll(`.${styles.photo}`);
 
-    // Apply basic animation to verify elements are being animated
+    // Apply animation to Joakim Andersson heading
     gsap.fromTo(
       firstNameEl,
       { x: -window.innerWidth, opacity: 0 },
@@ -34,24 +33,16 @@ export default function Hero() {
       { x: 0, opacity: 1, duration: 1, ease: 'power4.out', delay: 0.5 }
     );
 
-    // Apply wacky animations to photos
-    photos.forEach((photo, index) => {
-      gsap.fromTo(photo, {
-        opacity: 0,
-        x: gsap.utils.random(-100, 100),
-        y: gsap.utils.random(-100, 100),
-        rotation: gsap.utils.random(-90, 180),
-        scale: gsap.utils.random(0.5, 1.5)
-      }, {
-        opacity: 1,
-        x: 0,
-        y: 0,
-        rotation: 0,
-        scale: 1,
-        duration: 2,
-        ease: 'elastic.out(1, 0.9)',
-        delay: index * 0.2
-      });
+    // Add subtle rotate animation to the CTA
+    gsap.to(ctaEl, {
+      rotation: 10,
+      duration: 0.4,
+      yoyo: true,
+      repeat: 2,
+      delay: 1, // Start after the heading animation
+      onComplete: () => {
+        gsap.to(ctaEl, { rotation: 0, duration: 0.2 });
+      }
     });
   }, []);
 
@@ -120,11 +111,13 @@ export default function Hero() {
           />
         </div>
         <div className={`${styles.photo} ${styles.cta}`}>
-          <Image
-            priority
-            src={cta}
-            alt="Description 6"
-          />
+          <a href="mailto:heytherejoakim@gmail.com">
+            <Image
+              priority
+              src={cta}
+              alt="link to collaborate with Joakim."
+            />
+          </a>
         </div>
       </div>
     </section>
