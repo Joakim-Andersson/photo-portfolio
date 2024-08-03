@@ -67,6 +67,7 @@ export default function Hero() {
       <div className={styles.photos}>
         <div className={styles.photo}>
           <Image
+            placeholder="blur"
             priority
             src={img2}
             alt="Description 1"
@@ -76,6 +77,7 @@ export default function Hero() {
         </div>
         <div className={styles.photo}>
           <Image
+            placeholder="blur"
             priority
             src={img1}
             alt="Description 2"
@@ -84,7 +86,8 @@ export default function Hero() {
           />
         </div>
         <div className={styles.photo}>
-          <Image
+          <Image 
+            placeholder="blur"
             priority
             src={img3}
             alt="Description 3"
@@ -94,6 +97,7 @@ export default function Hero() {
         </div>
         <div className={styles.photo}>
           <Image
+            placeholder="blur"
             priority
             src={img4}
             alt="Description 4"
@@ -103,6 +107,7 @@ export default function Hero() {
         </div>
         <div className={styles.photo}>
           <Image
+            placeholder="blur"
             priority
             src={img5}
             alt="Description 5"
