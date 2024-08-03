@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { gsap } from 'gsap';
 import styles from './page.module.css';
 import { fetchPhotos } from './contentful';
 
@@ -39,16 +40,24 @@ export default function Photos() {
 
   const handlePhotoClick = (photo) => {
     setSelectedPhoto(photo);
+    setTimeout(() => {
+      gsap.fromTo(".photoModal", 
+        { scale: 0, opacity: 0 }, 
+        { scale: 1, opacity: 1, duration: 0.8, ease: "power4.out" }
+      );
+    }, 0);
   };
 
   const handleCloseClick = () => {
-    setSelectedPhoto(null);
+    gsap.to(".photoModal", 
+      { scale: 0, opacity: 0, duration: 0.5, ease: "power4.in", onComplete: () => setSelectedPhoto(null) }
+    );
   };
 
   return (
     <section className={styles.photosSection}>
-      {selectedPhoto ? (
-        <div className={styles.photoModal}>
+      {selectedPhoto && (
+        <div className={`${styles.photoModal} photoModal`}>
           <button className={styles.closeButton} onClick={handleCloseClick}>✕</button>
           <div className={styles.selectedImageContainer}>
             <Image
@@ -66,54 +75,51 @@ export default function Photos() {
             <a href="mailto:heytherejoakim@gmail.com" className={styles.requestPrintLink}>Request print</a>
           </div>
         </div>
-      ) : (
-        <>
-          <div className={styles.filterSection}>
-            <button 
-              onClick={() => {
-                setSelectedTag('');
-                setCurrentPage(1);
-              }} 
-              className={selectedTag === '' ? styles.activeFilter : ''}
-            >
-              all
-            </button>
-            {uniqueTags.map(tag => (
-              <button 
-                key={tag} 
-                onClick={() => {
-                  setSelectedTag(tag);
-                  setCurrentPage(1);
-                }}
-                className={selectedTag === tag ? styles.activeFilter : ''}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
-          <div className={styles.photoSection}>
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              currentPhotos.map(photo => (
-                <div key={photo.id} className={styles.photoItem} onClick={() => handlePhotoClick(photo)}>
-                  <Image
-                    src={`https:${photo.image}`}
-                    alt={photo.title}
-                    width={300}
-                    height={200}
-                    className={styles.photoImage}
-                  />
-                </div>
-              ))
-            )}
-          </div>
-          {indexOfLastPhoto < filteredPhotos.length && (
-            <div className={styles.seeMore}>
-              <button onClick={loadMorePhotos}>see more</button>
+      )}
+      <div className={styles.filterSection}>
+        <button 
+          onClick={() => {
+            setSelectedTag('');
+            setCurrentPage(1);
+          }} 
+          className={selectedTag === '' ? styles.activeFilter : ''}
+        >
+          all
+        </button>
+        {uniqueTags.map(tag => (
+          <button 
+            key={tag} 
+            onClick={() => {
+              setSelectedTag(tag);
+              setCurrentPage(1);
+            }}
+            className={selectedTag === tag ? styles.activeFilter : ''}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+      <div className={styles.photoSection}>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          currentPhotos.map(photo => (
+            <div key={photo.id} className={styles.photoItem} onClick={() => handlePhotoClick(photo)}>
+              <Image
+                src={`https:${photo.image}`}
+                alt={photo.title}
+                width={300}
+                height={200}
+                className={styles.photoImage}
+              />
             </div>
-          )}
-        </>
+          ))
+        )}
+      </div>
+      {indexOfLastPhoto < filteredPhotos.length && (
+        <div className={styles.seeMore}>
+          <button onClick={loadMorePhotos}>see more</button>
+        </div>
       )}
     </section>
   );
