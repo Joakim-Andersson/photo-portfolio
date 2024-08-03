@@ -37,6 +37,13 @@ p {
   letter-spacing: -0.02em; 
 }
 
+a {
+  font-family: var(--font-kosugi);
+  color: #332B87 !important;
+  font-size: 1rem;
+  letter-spacing: -0.02em; 
+}
+
 @media (max-width: 1099px) {
   html {
     padding: 1rem;
