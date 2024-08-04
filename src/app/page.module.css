@@ -267,7 +267,7 @@
   width: 50%; /* Adjust as needed */
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
   margin: 2rem;
   overflow: hidden;
 }
@@ -341,6 +341,7 @@
     margin: 0;
     width: 90%;
     max-width: 500px;
+    justify-content: center;
   }
 
   .selectedImage {
