@@ -333,7 +333,7 @@
   }
 
   .selectedImage {
-    max-width: 300px;
+    max-width: 200px;
   }
    
   .photoPrice {
@@ -341,12 +341,12 @@
   }
 
   .photoTitle {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .photoDetails {
     width: 90%;
-    max-width: 300px;
+    max-width: 200px;
   }
 }   
 
@@ -358,18 +358,17 @@
     max-width: 250px;
   }
 
-
   .selectedImage {
-    max-width: 200px;
+    max-width: 100px;
   }
 
   .photoTitle {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .photoDetails {
     width: 90%;
-    max-width: 200px;
+    max-width: 100px;
   }
 }   
 
