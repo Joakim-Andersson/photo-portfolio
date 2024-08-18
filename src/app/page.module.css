@@ -353,7 +353,7 @@
   font-size: 24px;
   cursor: pointer;
   z-index: 1001;
-  padding: 0 10px;
+  padding: 100px;
 }
 
 .leftArrow {
@@ -409,6 +409,45 @@
   cursor: pointer;
 }
 
+/* Base styles for the photo item */
+.photoItem {
+  position: relative;
+  width: auto;
+  height: 200px;
+  overflow: hidden;
+  border: 2px solid #f0f0f0;
+  border-radius: 2px;
+}
+
+.photoItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2); /* Adjust the color and opacity here */
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.photoItem:hover::before {
+  opacity: 1;
+}
+
+.photoImage {
+  object-fit: cover;
+  border-radius: 2px;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s ease;
+}
+
+.photoItem:hover .photoImage {
+  transform: scale(1.05);
+}
+
 @media (max-width: 780px) {
 
   .selectedImage {
@@ -418,6 +457,10 @@
   .selectedImageWrapper {
     max-width: 200px;
   }
+
+  .arrowButton {
+    padding: 50px 10px;
+  }
    
   .photoTitle {
     font-size: 14px;
@@ -426,6 +469,24 @@
   .photoDetails {
     max-width: 200px;
   }
+
+  .photoItem::before {
+    opacity: 0; /* Ensure overlay remains invisible */
+  }
+
+  .photoItem:hover::before {
+    opacity: 0; /* Disable hover effect for overlay */
+  }
+
+  .photoImage {
+    transform: none;
+  }
+
+  .photoItem:hover .photoImage {
+    transform: none; /* Disable image scaling */
+    opacity: 1; /* Keep image fully visible */
+  }
+
 }   
 
 @media (max-width: 380px) {
@@ -533,5 +594,13 @@
 
   .sectionThree {
     min-width: 0px;
+  }
+
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 220px 320px;
+    grid-template-areas: 
+      "line line line"
+      "sectionThree sectionTwo sectionOne";
   }
 }
