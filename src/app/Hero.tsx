@@ -6,9 +6,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import styles from './page.module.css';
 import cta from '/public/images/cta.png';
-import img1 from '/public/images/building.jpg';
-import img2 from '/public/images/city.jpg';
-import img3 from '/public/images/watersteph.jpg';
+import img1 from '/public/images/feet.jpg';
+import img2 from '/public/images/water.webp';
+import img3 from '/public/images/smoking.webp';
 import img4 from '/public/images/shadowdog.png';
 import img5 from '/public/images/bricks.jpg';
 
@@ -62,7 +62,7 @@ export default function Hero() {
           <br />
           <span className={styles.lastName}>ANDERSSON</span>
         </h1>
-        <h2>Capturing subtle <br />moments in<br />Scandinavia</h2>
+        <h2>Capturing subtle <br />moments with<br />my Fuji</h2>
       </div>
       <div className={styles.photos}>
         <div className={styles.photo}>
