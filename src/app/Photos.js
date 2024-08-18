@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
@@ -11,7 +10,7 @@ export default function Photos() {
   const [loading, setLoading] = useState(true);
   const [selectedTag, setSelectedTag] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedPhoto, setSelectedPhoto] = useState(null); // State for selected photo
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(null);
   const photosPerPage = 12;
 
   useEffect(() => {
@@ -21,7 +20,19 @@ export default function Photos() {
       setLoading(false);
     };
     getPhotos();
+
+    // Prevent right-click on the entire document
+    // document.addEventListener('contextmenu', handleContextMenu);
+
+    // return () => {
+      // Clean up the event listener on component unmount
+      // document.removeEventListener('contextmenu', handleContextMenu);
+    // };
   }, []);
+
+  // const handleContextMenu = (e) => {
+  //   e.preventDefault();
+  // };
 
   const uniqueTags = Array.from(new Set(photos.flatMap(photo => photo.tags)));
 
@@ -38,8 +49,8 @@ export default function Photos() {
     }
   };
 
-  const handlePhotoClick = (photo) => {
-    setSelectedPhoto(photo);
+  const handlePhotoClick = (index) => {
+    setSelectedPhotoIndex(index);
     setTimeout(() => {
       gsap.fromTo(".photoModal", 
         { scale: 0, opacity: 0 }, 
@@ -50,30 +61,54 @@ export default function Photos() {
 
   const handleCloseClick = () => {
     gsap.to(".photoModal", 
-      { scale: 0, opacity: 0, duration: 0.5, ease: "power4.in", onComplete: () => setSelectedPhoto(null) }
+      { scale: 0, opacity: 0, duration: 0.5, ease: "power4.in", onComplete: () => setSelectedPhotoIndex(null) }
     );
+  };
+
+  const handleNextPhoto = () => {
+    if (selectedPhotoIndex < filteredPhotos.length - 1) {
+      setSelectedPhotoIndex(selectedPhotoIndex + 1);
+    }
+  };
+
+  const handlePreviousPhoto = () => {
+    if (selectedPhotoIndex > 0) {
+      setSelectedPhotoIndex(selectedPhotoIndex - 1);
+    }
   };
 
   return (
     <section className={styles.photosSection}>
-      {selectedPhoto && (
+      {selectedPhotoIndex !== null && (
         <div className={`${styles.photoModal} photoModal`}>
           <button className={styles.closeButton} onClick={handleCloseClick}>✕</button>
-          <div className={styles.selectedImageContainer}>
-            <Image
-              src={`https:${selectedPhoto.image}`}
-              alt={selectedPhoto.title}
-              layout="responsive"
-              width={700}
-              height={500}
-              className={styles.selectedImage}
-            />
+          <button 
+            className={`${styles.arrowButton} ${styles.leftArrow}`} 
+            onClick={handlePreviousPhoto}
+            disabled={selectedPhotoIndex === 0}
+          >←</button>
+          <div className={styles.selectedImageWrapper}>
+            <div className={styles.selectedImageContainer}>
+              <Image
+                src={`https:${filteredPhotos[selectedPhotoIndex].image}`}
+                alt={filteredPhotos[selectedPhotoIndex].title}
+                layout="responsive"
+                width={700}
+                height={500}
+                className={styles.selectedImage}
+              />
+            </div>
+            <div className={styles.photoDetails}>
+              <p className={styles.photoTitle}>{filteredPhotos[selectedPhotoIndex].title}</p>
+              <p className={styles.photoPrice}>£30</p>
+              <a href="mailto:heytherejoakim@gmail.com" className={styles.requestPrintLink}>Request print</a>
+            </div>
           </div>
-          <div className={styles.photoDetails}>
-            <p className={styles.photoTitle}>{selectedPhoto.title}</p>
-            <p className={styles.photoPrice}>£30</p>
-            <a href="mailto:heytherejoakim@gmail.com" className={styles.requestPrintLink}>Request print</a>
-          </div>
+          <button 
+            className={`${styles.arrowButton} ${styles.rightArrow}`} 
+            onClick={handleNextPhoto}
+            disabled={selectedPhotoIndex === filteredPhotos.length - 1}
+          >→</button>
         </div>
       )}
       <div className={styles.filterSection}>
@@ -103,8 +138,8 @@ export default function Photos() {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          currentPhotos.map(photo => (
-            <div key={photo.id} className={styles.photoItem} onClick={() => handlePhotoClick(photo)}>
+          currentPhotos.map((photo, index) => (
+            <div key={photo.id} className={styles.photoItem} onClick={() => handlePhotoClick(index)}>
               <Image
                 src={`https:${photo.image}`}
                 alt={photo.title}
