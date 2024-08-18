@@ -70,7 +70,7 @@ export default function About() {
 
   return (
     <section ref={sectionRef} className={styles.about}>
-      <div className={styles.bar}></div>
+       <div className={styles.bar}></div>
       <div className={`${styles.section} ${styles.sectionOne}`}>
         <p>me</p>
         <Image
@@ -93,7 +93,7 @@ export default function About() {
         </p>
       </div>
       <div className={`${styles.section} ${styles.sectionThree}`}>
-        <p>Open for work<br></br>@heytherejoakim</p>
+        <p>Find me<br></br>@heytherejoakim</p>
         <p className={styles.greyBars}>BEHIND</p>
         <p className={styles.greyBars}>THE</p>
         <p className={styles.greyBars}>CAMERA</p>

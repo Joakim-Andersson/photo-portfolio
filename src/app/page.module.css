@@ -586,7 +586,7 @@
 @media (max-width: 1020px) {
   .about {
     display: flex;
-   flex-direction: column;
+    flex-direction: column;
   }
 }
 
@@ -596,4 +596,7 @@
     min-width: 0px;
   }
 
+  .about {
+    flex-direction: column-reverse;
+ }
 }

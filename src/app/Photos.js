@@ -41,18 +41,18 @@ export default function Photos() {
   const animateTransition = (nextIndex) => {
     if (isAnimating) return; // Prevent running another animation during an ongoing one
     setIsAnimating(true);
-
+  
     // Fade out the current photo and details
-    gsap.to(`.${styles.selectedImageContainer}`, {
+    gsap.to(`.${styles.selectedImageContainer}, .${styles.photoDetails}`, {
       opacity: 0,
       duration: 0.5,
       onComplete: () => {
-        // After fade-out, update the selected photo
+        // After fade-out, update the selected photo and details
         setSelectedPhotoIndex(nextIndex);
-
+  
         // Fade in the new photo and details
         gsap.fromTo(
-          `.${styles.selectedImageContainer}`,
+          `.${styles.selectedImageContainer}, .${styles.photoDetails}`,
           { opacity: 0 },
           {
             opacity: 1,
@@ -65,6 +65,7 @@ export default function Photos() {
       }
     });
   };
+  
 
   const handlePhotoClick = (index) => {
     setSelectedPhotoIndex(index);
