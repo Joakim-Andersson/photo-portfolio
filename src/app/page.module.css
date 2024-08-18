@@ -596,11 +596,4 @@
     min-width: 0px;
   }
 
-  .about {
-    display: grid;
-    grid-template-columns: 1fr 220px 320px;
-    grid-template-areas: 
-      "line line line"
-      "sectionThree sectionTwo sectionOne";
-  }
 }
