@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
@@ -12,6 +12,7 @@ export default function Photos() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(null);
   const photosPerPage = 12;
+  const [isAnimating, setIsAnimating] = useState(false); // To prevent multiple clicks during animation
 
   useEffect(() => {
     const getPhotos = async () => {
@@ -20,19 +21,7 @@ export default function Photos() {
       setLoading(false);
     };
     getPhotos();
-
-    // Prevent right-click on the entire document
-    // document.addEventListener('contextmenu', handleContextMenu);
-
-    // return () => {
-      // Clean up the event listener on component unmount
-      // document.removeEventListener('contextmenu', handleContextMenu);
-    // };
   }, []);
-
-  // const handleContextMenu = (e) => {
-  //   e.preventDefault();
-  // };
 
   const uniqueTags = Array.from(new Set(photos.flatMap(photo => photo.tags)));
 
@@ -49,31 +38,59 @@ export default function Photos() {
     }
   };
 
+  const animateTransition = (nextIndex) => {
+    if (isAnimating) return; // Prevent running another animation during an ongoing one
+    setIsAnimating(true);
+
+    // Fade out the current photo and details
+    gsap.to(`.${styles.selectedImageContainer}`, {
+      opacity: 0,
+      duration: 0.5,
+      onComplete: () => {
+        // After fade-out, update the selected photo
+        setSelectedPhotoIndex(nextIndex);
+
+        // Fade in the new photo and details
+        gsap.fromTo(
+          `.${styles.selectedImageContainer}`,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            duration: 0.5,
+            onComplete: () => {
+              setIsAnimating(false); // Allow new animations after completing the current one
+            }
+          }
+        );
+      }
+    });
+  };
+
   const handlePhotoClick = (index) => {
     setSelectedPhotoIndex(index);
     setTimeout(() => {
-      gsap.fromTo(".photoModal", 
-        { scale: 0, opacity: 0 }, 
+      gsap.fromTo(".photoModal",
+        { scale: 0, opacity: 0 },
         { scale: 1, opacity: 1, duration: 0.8, ease: "power4.out" }
       );
     }, 0);
   };
 
   const handleCloseClick = () => {
-    gsap.to(".photoModal", 
+    gsap.to(".photoModal",
       { scale: 0, opacity: 0, duration: 0.5, ease: "power4.in", onComplete: () => setSelectedPhotoIndex(null) }
     );
   };
 
   const handleNextPhoto = () => {
     if (selectedPhotoIndex < filteredPhotos.length - 1) {
-      setSelectedPhotoIndex(selectedPhotoIndex + 1);
+      animateTransition(selectedPhotoIndex + 1);
     }
   };
 
   const handlePreviousPhoto = () => {
     if (selectedPhotoIndex > 0) {
-      setSelectedPhotoIndex(selectedPhotoIndex - 1);
+      animateTransition(selectedPhotoIndex - 1);
     }
   };
 
