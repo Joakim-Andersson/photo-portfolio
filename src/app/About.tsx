@@ -72,7 +72,6 @@ export default function About() {
     <section ref={sectionRef} className={styles.about}>
        <div className={styles.bar}></div>
       <div className={`${styles.section} ${styles.sectionOne}`}>
-        <p>me</p>
         <Image
           src={joki}
           alt="Photo of Joakim Andersson"

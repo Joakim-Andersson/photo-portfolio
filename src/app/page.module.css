@@ -527,6 +527,7 @@
 }
 
 .AboutImg {
+  padding-top: 45px;
   width: 310px;
   height: auto;
 }
@@ -599,4 +600,12 @@
   .about {
     flex-direction: column-reverse;
  }
+
+ .AboutImg {
+  padding-top: 0px;
+ }
+
+ .sectionTwo {
+  margin-top: 15px;
+}
 }
