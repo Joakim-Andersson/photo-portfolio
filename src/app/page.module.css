@@ -451,6 +451,10 @@
     max-width: 200px;
   }
 
+  .photoItem {
+    height: 250px;
+  }
+
   .photoItem::before {
     opacity: 0; /* Ensure overlay remains invisible */
   }
