@@ -7,8 +7,8 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import cta from '/public/images/cta.png';
 import img1 from '/public/images/feet.jpg';
-import img2 from '/public/images/water.webp';
-import img3 from '/public/images/smoking.webp';
+import img2 from '/public/images/water.png';
+import img3 from '/public/images/smoking.png';
 import img4 from '/public/images/shadowdog.png';
 import img5 from '/public/images/bricks.jpg';
 
