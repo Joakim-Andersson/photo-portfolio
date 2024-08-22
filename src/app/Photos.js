@@ -41,25 +41,26 @@ export default function Photos() {
   const animateTransition = (nextIndex) => {
     if (isAnimating) return; // Prevent running another animation during an ongoing one
     setIsAnimating(true);
+
+    const container = document.querySelector(`.${styles.selectedImageContainer}`);
   
-    // Fade out the current photo and details
-    gsap.to(`.${styles.selectedImageContainer}, .${styles.photoDetails}`, {
-      opacity: 0,
-      duration: 0.5,
+    // Animate the CSS variable --width for the camera shutter effect
+    gsap.to(container, {
+      '--width': '100%', // Close the shutter
+      ease: 'power1.inOut', // Easing for the camera shutter effect
+      duration: 0.75,
       onComplete: () => {
-        // After fade-out, update the selected photo and details
+        // Update the selected photo and details after the shutter closes
         setSelectedPhotoIndex(nextIndex);
-  
-        // Fade in the new photo and details
-        gsap.fromTo(
-          `.${styles.selectedImageContainer}, .${styles.photoDetails}`,
-          { opacity: 0 },
-          {
-            opacity: 1,
-            duration: 0.5,
-            onComplete: () => {
-              setIsAnimating(false); // Allow new animations after completing the current one
-            }
+        
+        // Reopen the shutter
+        gsap.to(container, {
+          '--width': '0%', // Open the shutter
+          ease: 'power1.inOut',
+          duration: 1,
+          onComplete: () => {
+            setIsAnimating(false); // Allow new animations after completing the current one
+          }
           }
         );
       }
