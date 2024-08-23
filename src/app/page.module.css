@@ -205,9 +205,6 @@
     grid-template-columns: repeat(2, 1fr);
     padding: 20px 0px;
   }
-  .photosSection {
-    min-height: 1400px;
-  }
 }
 
 .photoItem::before {
