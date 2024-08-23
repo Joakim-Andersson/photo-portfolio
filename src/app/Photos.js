@@ -27,9 +27,15 @@ export default function Photos() {
     getPhotos();
   }, []);
 
+  // Fixing ScrollTrigger integration
   useEffect(() => {
-    ScrollTrigger.refresh(); // Refresh on page changes or photo filters
-  }, [currentPage, selectedTag]);
+    const ctx = gsap.context(() => {
+      // ScrollTrigger refreshes the layout when currentPage or selectedTag changes
+      ScrollTrigger.refresh();
+    }, sectionRef);
+
+    return () => ctx.revert(); // Clean up GSAP context when component unmounts or dependencies change
+  }, [currentPage, selectedTag]); // Only rerun when currentPage or selectedTag changes
 
   const uniqueTags = Array.from(new Set(photos.flatMap(photo => photo.tags)));
   const filteredPhotos = selectedTag
@@ -98,8 +104,6 @@ export default function Photos() {
       animateTransition(selectedPhotoIndex - 1);
     }
   };
-
- 
 
   return (
     <section ref={sectionRef} className={styles.photosSection}>
