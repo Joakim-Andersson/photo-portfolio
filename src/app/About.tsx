@@ -16,7 +16,7 @@ export default function About() {
     const ctx = gsap.context(() => {
       // Animate Section One from the left
       gsap.fromTo(
-        `.${styles.sectionOne}`,  // Correct class selection with template string
+        `.${styles.sectionOne}`,
         { xPercent: -100 },
         {
           xPercent: 0,
@@ -29,7 +29,7 @@ export default function About() {
         }
       );
 
-      // Animate Section Two opacity
+      // Animate Section Two from the bottom
       gsap.fromTo(
         `.${styles.sectionTwo}`,
         { opacity: 0 },
@@ -70,8 +70,8 @@ export default function About() {
 
   return (
     <section ref={sectionRef} className={styles.about}>
-      <div className={styles.bar}></div>
-      <div className={`${styles.section} ${styles.sectionOne}`}> 
+       <div className={styles.bar}></div>
+      <div className={`${styles.section} ${styles.sectionOne}`}>
         <Image
           src={joki}
           alt="Photo of Joakim Andersson"
