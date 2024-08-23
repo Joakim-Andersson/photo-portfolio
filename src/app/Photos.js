@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useLayoutEffect, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -23,7 +23,6 @@ export default function Photos() {
       const data = await fetchPhotos();
       setPhotos(data);
       setLoading(false);
-      ScrollTrigger.refresh(); // Refresh after loading new photos
     };
     getPhotos();
   }, []);
