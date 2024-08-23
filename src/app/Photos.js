@@ -1,9 +1,12 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './page.module.css';
 import { fetchPhotos } from './contentful';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Photos() {
   const [photos, setPhotos] = useState([]);
@@ -12,23 +15,27 @@ export default function Photos() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(null);
   const photosPerPage = 12;
-  const [isAnimating, setIsAnimating] = useState(false); // To prevent multiple clicks during animation
+  const [isAnimating, setIsAnimating] = useState(false);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const getPhotos = async () => {
       const data = await fetchPhotos();
       setPhotos(data);
       setLoading(false);
+      ScrollTrigger.refresh(); // Refresh after loading new photos
     };
     getPhotos();
   }, []);
 
-  const uniqueTags = Array.from(new Set(photos.flatMap(photo => photo.tags)));
+  useEffect(() => {
+    ScrollTrigger.refresh(); // Refresh on page changes or photo filters
+  }, [currentPage, selectedTag]);
 
+  const uniqueTags = Array.from(new Set(photos.flatMap(photo => photo.tags)));
   const filteredPhotos = selectedTag
     ? photos.filter(photo => photo.tags.includes(selectedTag))
     : photos;
-
   const indexOfLastPhoto = currentPage * photosPerPage;
   const currentPhotos = filteredPhotos.slice(0, indexOfLastPhoto);
 
@@ -39,39 +46,32 @@ export default function Photos() {
   };
 
   const animateTransition = (nextIndex) => {
-    if (isAnimating) return; // Prevent running another animation during an ongoing one
+    if (isAnimating) return;
     setIsAnimating(true);
 
     const container = document.querySelector(`.${styles.selectedImageContainer}`);
-  
-    // Animate the CSS variable --width for the camera shutter effect
+
     gsap.to(container, {
-      '--width': '100%', // Close the shutter
-      ease: 'power1.inOut', // Easing for the camera shutter effect
+      '--width': '100%',
+      ease: 'power1.inOut',
       duration: 0.75,
       onComplete: () => {
-        // Update the selected photo and details after the shutter closes
         setSelectedPhotoIndex(nextIndex);
-        
-        // Reopen the shutter
         gsap.to(container, {
-          '--width': '0%', // Open the shutter
+          '--width': '0%',
           ease: 'power1.inOut',
           duration: 1,
-          onComplete: () => {
-            setIsAnimating(false); // Allow new animations after completing the current one
-          }
-          }
-        );
-      }
+          onComplete: () => setIsAnimating(false),
+        });
+      },
     });
   };
-  
 
   const handlePhotoClick = (index) => {
     setSelectedPhotoIndex(index);
     setTimeout(() => {
-      gsap.fromTo(".photoModal",
+      gsap.fromTo(
+        ".photoModal",
         { scale: 0, opacity: 0 },
         { scale: 1, opacity: 1, duration: 0.8, ease: "power4.out" }
       );
@@ -79,9 +79,13 @@ export default function Photos() {
   };
 
   const handleCloseClick = () => {
-    gsap.to(".photoModal",
-      { scale: 0, opacity: 0, duration: 0.5, ease: "power4.in", onComplete: () => setSelectedPhotoIndex(null) }
-    );
+    gsap.to(".photoModal", {
+      scale: 0,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power4.in",
+      onComplete: () => setSelectedPhotoIndex(null),
+    });
   };
 
   const handleNextPhoto = () => {
@@ -96,13 +100,15 @@ export default function Photos() {
     }
   };
 
+ 
+
   return (
-    <section className={styles.photosSection}>
+    <section ref={sectionRef} className={styles.photosSection}>
       {selectedPhotoIndex !== null && (
         <div className={`${styles.photoModal} photoModal`}>
           <button className={styles.closeButton} onClick={handleCloseClick}>✕</button>
-          <button 
-            className={`${styles.arrowButton} ${styles.leftArrow}`} 
+          <button
+            className={`${styles.arrowButton} ${styles.leftArrow}`}
             onClick={handlePreviousPhoto}
             disabled={selectedPhotoIndex === 0}
           >←</button>
@@ -123,26 +129,26 @@ export default function Photos() {
               <a href="mailto:heytherejoakim@gmail.com" className={styles.requestPrintLink}>Request print</a>
             </div>
           </div>
-          <button 
-            className={`${styles.arrowButton} ${styles.rightArrow}`} 
+          <button
+            className={`${styles.arrowButton} ${styles.rightArrow}`}
             onClick={handleNextPhoto}
             disabled={selectedPhotoIndex === filteredPhotos.length - 1}
           >→</button>
         </div>
       )}
       <div className={styles.filterSection}>
-        <button 
+        <button
           onClick={() => {
             setSelectedTag('');
             setCurrentPage(1);
-          }} 
+          }}
           className={selectedTag === '' ? styles.activeFilter : ''}
         >
           all
         </button>
         {uniqueTags.map(tag => (
-          <button 
-            key={tag} 
+          <button
+            key={tag}
             onClick={() => {
               setSelectedTag(tag);
               setCurrentPage(1);
