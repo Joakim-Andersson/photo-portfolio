@@ -1,4 +1,5 @@
 "use client";
+
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -15,7 +16,7 @@ export default function About() {
     const ctx = gsap.context(() => {
       // Animate Section One from the left
       gsap.fromTo(
-        `.${styles.sectionOne}`,
+        `.${styles.sectionOne}`,  // Correct class selection with template string
         { xPercent: -100 },
         {
           xPercent: 0,
@@ -28,7 +29,7 @@ export default function About() {
         }
       );
 
-      // Animate Section Two from the bottom
+      // Animate Section Two opacity
       gsap.fromTo(
         `.${styles.sectionTwo}`,
         { opacity: 0 },
@@ -69,8 +70,8 @@ export default function About() {
 
   return (
     <section ref={sectionRef} className={styles.about}>
-       <div className={styles.bar}></div>
-      <div className={`${styles.section} ${styles.sectionOne}`}>
+      <div className={styles.bar}></div>
+      <div className={`${styles.section} ${styles.sectionOne}`}> 
         <Image
           src={joki}
           alt="Photo of Joakim Andersson"
