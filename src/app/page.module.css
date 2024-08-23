@@ -309,7 +309,7 @@
   position: relative;
   display: flex;
   width: 100%; /* Adjust as needed */
-  justify-content: start;
+  justify-content: flex-start;
   overflow: hidden;
   --width: 0%;
 }
@@ -387,7 +387,7 @@
   text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .photoTitle {
@@ -551,7 +551,7 @@
 
 .sectionTwo {
   grid-area: sectionTwo;
-  justify-self: start;
+  justify-self: flex-start;
 }
 
 .sectionThree {

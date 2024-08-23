@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
@@ -61,12 +62,10 @@ export default function Photos() {
           onComplete: () => {
             setIsAnimating(false); // Allow new animations after completing the current one
           }
-          }
-        );
+        });
       }
     });
   };
-  
 
   const handlePhotoClick = (index) => {
     setSelectedPhotoIndex(index);
