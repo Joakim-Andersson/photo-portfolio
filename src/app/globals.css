@@ -11,7 +11,11 @@
 
 html {
   background-color: var(--bg-color);
-  padding: 2rem;
+  padding: 25px;
+}
+
+body {
+  margin: 0;
 }
 
 h1 {
