@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './page.module.css';
 import { fetchPhotos } from './contentful';
 
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
 export default function Photos() {
   const [photos, setPhotos] = useState([]);
@@ -28,14 +28,14 @@ export default function Photos() {
   }, []);
 
   // Fixing ScrollTrigger integration
-  useEffect(() => {
-    const ctx = gsap.context(() => {
+  // useEffect(() => {
+    // const ctx = gsap.context(() => {
       // ScrollTrigger refreshes the layout when currentPage or selectedTag changes
-      ScrollTrigger.refresh();
-    }, sectionRef);
+    //   ScrollTrigger.refresh();
+    // }, sectionRef);
 
-    return () => ctx.revert(); // Clean up GSAP context when component unmounts or dependencies change
-  }, [currentPage, selectedTag]); // Only rerun when currentPage or selectedTag changes
+   //  return () => ctx.revert(); // Clean up GSAP context when component unmounts or dependencies change
+ //  }, [currentPage, selectedTag]); // Only rerun when currentPage or selectedTag changes
 
   const uniqueTags = Array.from(new Set(photos.flatMap(photo => photo.tags)));
   const filteredPhotos = selectedTag
