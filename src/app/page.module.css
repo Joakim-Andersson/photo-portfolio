@@ -18,6 +18,7 @@
 
 .firstName, .lastName {
   display: inline-block;
+  opacity: 0;
 }
 
 .bar {
@@ -288,6 +289,7 @@
   background-color: #fff;
   cursor: pointer;
   font-family: var(--font-kosugi);
+  color: var(--black);
 }
 
 /* Expand photo section */
