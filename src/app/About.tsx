@@ -80,7 +80,7 @@ export default function About() {
         <div className={styles.tags}>
           <p>1993</p>
           <p>swedish</p>
-          <p>kid</p>
+          <p>boy</p>
         </div>
       </div>
       <div className={`${styles.section} ${styles.sectionTwo}`}>

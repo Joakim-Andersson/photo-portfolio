@@ -356,10 +356,18 @@
 
 .leftArrow {
   left: 10px;
+  transition: 0.3s ease all;
 }
 
 .rightArrow {
   right: 10px;
+  transition: 0.3s ease all;
+}
+
+.leftArrow:hover, .rightArrow:hover {
+  color: #FDD600;
+  font-size: 300px;
+  transition: 0.3s ease all;
 }
 
 .arrowButton:disabled {
@@ -458,6 +466,12 @@
 
   .arrowButton {
     padding: 50px 10px;
+  }
+
+  .leftArrow:hover, .rightArrow:hover {
+    color: rgb(206, 206, 206);
+    font-size: 24px;
+    transition: none;
   }
    
   .photoTitle {
